@@ -30,6 +30,7 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
     private var shouldSimulateRoute = false
     private var showsEndOfRouteFeedback = false
     private var mute = false
+    private var isDrivingMode = true
     private lateinit var navigationMapboxMap: NavigationMapboxMap
     private lateinit var mapboxNavigation: MapboxNavigation
 
@@ -96,7 +97,7 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
                     .applyDefaultParams()
                     .accessToken(accessToken)
                     .coordinates(mutableListOf(origin, destination))
-                    .profile(RouteUrl.PROFILE_DRIVING)
+                    .profile(isDrivingMode? RouteUrl.PROFILE_DRIVING : RouteUrl.PROFILE_WALKING)
                     .steps(true)
                     .voiceInstructions(!this.mute)
                     .build(), routesReqCallback)
@@ -221,6 +222,10 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
 
     fun setMute(mute: Boolean) {
         this.mute = mute
+    }
+
+    fun setIsDrivingMode(isDriving: Boolean) {
+        this.isDrivingMode = isDriving
     }
 
     fun onDropViewInstance() {

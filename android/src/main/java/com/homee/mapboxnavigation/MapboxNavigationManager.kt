@@ -84,4 +84,9 @@ class MapboxNavigationManager(var mCallerContext: ReactApplicationContext) : Sim
         }
         view.setMute(mute)
     }
+
+    ReactProp(name = "isDrivingMode")
+    fun setIsDrivingMode(view: MapboxNavigationView, isDrivingMode: Boolean) {
+        view.setIsDrivingMode(isDrivingMode)
+    }
 }
