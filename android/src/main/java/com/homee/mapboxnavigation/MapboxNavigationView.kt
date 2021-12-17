@@ -92,12 +92,15 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
                     .defaultNavigationOptionsBuilder(context, accessToken)
                     .isFromNavigationUi(true)
                     .build()
+            var route = RouteUrl.PROFILE_WALKING;
+            if (this.isDrivingMode)
+                route = RouteUrl.PROFILE_DRIVING
             this.mapboxNavigation = MapboxNavigationProvider.create(navigationOptions)
             this.mapboxNavigation.requestRoutes(RouteOptions.builder()
                     .applyDefaultParams()
                     .accessToken(accessToken)
                     .coordinates(mutableListOf(origin, destination))
-                    .profile(isDrivingMode? RouteUrl.PROFILE_DRIVING : RouteUrl.PROFILE_WALKING)
+                    .profile(route)
                     .steps(true)
                     .voiceInstructions(!this.mute)
                     .build(), routesReqCallback)
