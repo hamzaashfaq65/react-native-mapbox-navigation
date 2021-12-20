@@ -33,6 +33,7 @@ class MapboxNavigationView: UIView, NavigationViewControllerDelegate {
   @objc var showsEndOfRouteFeedback: Bool = false
   @objc var hideStatusView: Bool = false
   @objc var mute: Bool = false
+  @objc var isDrivingMode: Bool = false
   
   @objc var onLocationChange: RCTDirectEventBlock?
   @objc var onRouteProgressChange: RCTDirectEventBlock?
@@ -74,7 +75,13 @@ class MapboxNavigationView: UIView, NavigationViewControllerDelegate {
     let originWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: origin[1] as! CLLocationDegrees, longitude: origin[0] as! CLLocationDegrees))
     let destinationWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: destination[1] as! CLLocationDegrees, longitude: destination[0] as! CLLocationDegrees))
 
-    let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint])
+      let identifier=DirectionsProfileIdentifier.walking;
+      if(self.isDrivingMode)
+      {
+          identifier=DirectionsProfileIdentifier.automobile
+      }
+      print("Driving Mode---:  ",self.isDrivingMode)
+    let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint],identifier)
             
     Directions.shared.calculate(options) { [weak self] (session, result) in
       guard let strongSelf = self, let parentVC = strongSelf.parentViewController else {
