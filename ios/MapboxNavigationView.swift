@@ -75,13 +75,14 @@ class MapboxNavigationView: UIView, NavigationViewControllerDelegate {
     let originWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: origin[1] as! CLLocationDegrees, longitude: origin[0] as! CLLocationDegrees))
     let destinationWaypoint = Waypoint(coordinate: CLLocationCoordinate2D(latitude: destination[1] as! CLLocationDegrees, longitude: destination[0] as! CLLocationDegrees))
 
-      let identifier=DirectionsProfileIdentifier.walking;
+     
+      var identifier:DirectionsProfileIdentifier=DirectionsProfileIdentifier.walking;
       if(self.isDrivingMode)
       {
           identifier=DirectionsProfileIdentifier.automobile
       }
       print("Driving Mode---:  ",self.isDrivingMode)
-    let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint],identifier)
+      let options = NavigationRouteOptions(waypoints: [originWaypoint, destinationWaypoint],profileIdentifier:identifier)
             
     Directions.shared.calculate(options) { [weak self] (session, result) in
       guard let strongSelf = self, let parentVC = strongSelf.parentViewController else {
