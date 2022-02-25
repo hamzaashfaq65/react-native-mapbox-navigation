@@ -102,7 +102,8 @@ class MapboxNavigationView: UIView, NavigationViewControllerDelegate {
           let navigationOptions = NavigationOptions(navigationService: navigationService)
           let vc = NavigationViewController(for: route, routeIndex: 0, routeOptions: options, navigationOptions: navigationOptions)
 
-          vc.showsEndOfRouteFeedback = strongSelf.showsEndOfRouteFeedback
+//          vc.showsEndOfRouteFeedback = strongSelf.showsEndOfRouteFeedback
+          vc.showsEndOfRouteFeedback = false
           StatusView.appearance().isHidden = strongSelf.hideStatusView
 
           NavigationSettings.shared.voiceMuted = strongSelf.mute;

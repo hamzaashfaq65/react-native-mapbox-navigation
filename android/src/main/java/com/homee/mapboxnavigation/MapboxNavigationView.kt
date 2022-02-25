@@ -180,7 +180,8 @@ class MapboxNavigationView(private val context: ThemedReactContext) : Navigation
     }
 
     override fun onFinalDestinationArrival(enableDetailedFeedbackFlowAfterTbt: Boolean, enableArrivalExperienceFeedback: Boolean) {
-        super.onFinalDestinationArrival(this.showsEndOfRouteFeedback, this.showsEndOfRouteFeedback)
+//        super.onFinalDestinationArrival(this.showsEndOfRouteFeedback, this.showsEndOfRouteFeedback)
+        super.onFinalDestinationArrival(false, false)
         val event = Arguments.createMap()
         event.putString("onArrive", "")
         context.getJSModule(RCTEventEmitter::class.java).receiveEvent(id, "onArrive", event)
